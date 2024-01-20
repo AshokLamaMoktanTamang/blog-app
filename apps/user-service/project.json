@@ -52,6 +52,9 @@
         }
       }
     },
+    "proto": {
+      "executor": "tsc-node ./src/bin/build.ts"
+    },
     "lint": {
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"]
