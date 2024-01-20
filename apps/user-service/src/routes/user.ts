@@ -1,9 +1,9 @@
 import Router from 'koa-router';
 import User from '../models/user';
-import validator, { Joi } from 'koa-context-validator';
+import { userRegistrationValidation } from '../middleware/validationMiddleware';
 
 interface RegisterRequestBody {
-  username: string;
+  userName: string;
   email: string;
   password: string;
 }
@@ -17,17 +17,11 @@ interface CustomContext {
 const router = new Router<{}, CustomContext>();
 
 router.post(
-  '/register',
-  validator({
-    body: Joi.object().keys({
-      username: Joi.string().required(),
-      email: Joi.string().required(),
-      password: Joi.string().required(),
-    }),
-  }),
+  '/api/register',
+  userRegistrationValidation,
   async (ctx) => {
     try {
-      const { username, email, password } = ctx.request.body;
+      const { userName, email, password } = ctx.request.body;
 
       const existingUser = await User.findOne({ email });
 
@@ -37,13 +31,14 @@ router.post(
         return;
       }
 
-      const newUser = new User({ username, email, password });
+      const newUser = new User({ userName, email, password });
       await newUser.save();
 
       ctx.status = 201;
       ctx.body = { message: 'User registered successfully' };
     } catch (error) {
-      console.error(error);
+      console.log('Error', error);
+
       ctx.status = 500;
       ctx.body = { message: 'Internal Server Error' };
     }

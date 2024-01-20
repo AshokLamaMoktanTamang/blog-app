@@ -14,8 +14,9 @@ const app = new koa();
 
 app.use(bodyParser());
 
-app.use(userRouter.routes);
+app.use(userRouter.routes());
 app.use(userRouter.middleware());
+app.use(userRouter.allowedMethods());
 
 app.use(async (ctx) => {
   ctx.body = { message: 'Hello API' };
