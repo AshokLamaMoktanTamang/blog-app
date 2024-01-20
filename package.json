@@ -13,6 +13,7 @@
     "axios": "^1.0.0",
     "bcrypt": "^5.1.1",
     "joi": "^17.12.0",
+    "jsonwebtoken": "^9.0.2",
     "koa": "~2.14.1",
     "koa-bodyparser": "^4.4.1",
     "koa-context-validator": "^1.0.0",
