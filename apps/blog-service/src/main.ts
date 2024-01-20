@@ -1,7 +1,8 @@
 import koa from 'koa';
+import { config } from './config';
 
-const host = process.env.HOST ?? 'localhost';
-const port = process.env.PORT ? Number(process.env.PORT) : 3000;
+const host = config.host;
+const port = config.port;
 
 const app = new koa();
 
